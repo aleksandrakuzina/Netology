@@ -71,3 +71,18 @@ Date:   Sat Nov 6 11:25:00 2021 +0300
 --- a/DevOps and system administration/HW 2.1 Version control systems/terraform/.gitignore
 
 +++ b/DevOps and system administration/HW 2.1 Version control systems/terraform/.gitignore
+
+
+
+## Задание №2 – Теги
+
+Представьте ситуацию, когда в коде была обнаружена ошибка - надо вернуться на предыдущую версию кода,
+исправить ее и выложить исправленный код в продакшн. Мы никуда код выкладывать не будем, но пометим некоторые коммиты тегами и
+создадим от них ветки.
+
+1. Создайте легковестный тег `v0.0` на HEAD коммите и запуште его во все три добавленных на предыдущем этапе `upstream`.
+2. Аналогично создайте аннотированный тег `v0.1`.
+3. Перейдите на страницу просмотра тегов в гитхабе (и в других репозиториях) и посмотрите, чем отличаются созданные теги.
+   * В гитхабе – [https://github.com/YOUR_ACCOUNT/devops-netology/releases](https://github.com/YOUR_ACCOUNT/devops-netology/releases)
+   * В гитлабе – [https://gitlab.com/YOUR_ACCOUNT/devops-netology/-/tags](https://gitlab.com/YOUR_ACCOUNT/devops-netology/-/tags)
+   * В битбакете – список тегов расположен в выпадающем меню веток на отдельной вкладке.
