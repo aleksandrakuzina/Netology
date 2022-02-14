@@ -1,71 +1,43 @@
 ### 1. Установите Bitwarden плагин для браузера. Зарегестрируйтесь и сохраните несколько паролей.
 
-*Bitwarden установила, достаточно удобно! Но чаще пользуюсь keepass*
+![Alt text](Задание_1_установить_bitwarden.png)
 
-![](Задание 1 установить bitwarden.png)
-![](Задание 1 установить bitwarden2.png)
+### 2. Установите Google authenticator на мобильный телефон. Настройте вход в Bitwarden аккаунт через Google authenticator OTP
 
-### 2. Установите Google authenticator на мобильный телефон. Настройте вход в Bitwarden акаунт через Google authenticator OTP
-*Google authenticator установлен код генерируется каждые 30 секунд, вход с помощью двухфакторной аутентификации выполнен  (ввод пароля + код OTP)*
+*Google authenticator установлен код генерируется каждые 30 секунд, вход с помощью двухфакторной аутентификации выполнен (ввод пароля + код OTP)*
+![Alt text](Задание_2_1.png)
 
-![](Задание 2 установить bitwarden.png)
-![](Задание 2 установить bitwarden2.png)
+![Alt text](Задание_2_2.png)
 
 ### 3. Установите apache2, сгенерируйте самоподписанный сертификат, настройте тестовый сайт для работы по HTTPS.
 
-```
- sudo systemctl status apache2
-● apache2.service - The Apache HTTP Server
-   Loaded: loaded (/lib/systemd/system/apache2.service; enabled; vendor preset: enabled)
-   Active: active (running) since Thu 2022-01-27 14:04:35 MSK; 4min 21s ago
-     Docs: https://httpd.apache.org/docs/2.4/
-  Process: 8836 ExecStart=/usr/sbin/apachectl start (code=exited, status=0/SUCCESS)
- Main PID: 8840 (apache2)
-    Tasks: 55 (limit: 4915)
-   Memory: 8.7M
-   CGroup: /system.slice/apache2.service
-           ├─8840 /usr/sbin/apache2 -k start
-           ├─8841 /usr/sbin/apache2 -k start
-           └─8842 /usr/sbin/apache2 -k start
-
-Jan 27 14:04:35 debian systemd[1]: Starting The Apache HTTP Server...
-Jan 27 14:04:35 debian systemd[1]: Started The Apache HTTP Server.
-```
-![](Задание 3 создание сертификата на сайте example.com .png)
-
 ````
-/# sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache_for_example_com_netology.key -out /etc/apache2/ssl/apache_for_example_com_netology.crt
-Generating a RSA private key
-.........................................................+++++
-...............................................................................+++++
-writing new private key to '/etc/apache2/ssl/apache_for_example_com_netology.key'
------
-You are about to be asked to enter information that will be incorporated
-into your certificate request.
-What you are about to enter is what is called a Distinguished Name or a DN.
-There are quite a few fields but you can leave some blank
-For some fields there will be a default value,
-If you enter '.', the field will be left blank.
------
-Country Name (2 letter code) [AU]:netology
-string is too long, it needs to be no more than 2 bytes long
-Country Name (2 letter code) [AU]:moskow
-string is too long, it needs to be no more than 2 bytes long
-Country Name (2 letter code) [AU]:Moskow
-string is too long, it needs to be no more than 2 bytes long
-Country Name (2 letter code) [AU]:RU
-State or Province Name (full name) [Some-State]:Moskow
-Locality Name (eg, city) []:Netology
-Organization Name (eg, company) [Internet Widgits Pty Ltd]:Netology
-Organizational Unit Name (eg, section) []:DevSys_DPC_2
-Common Name (e.g. server FQDN or YOUR name) []:DevSys_DPC_2_KUZINA
-Email Address []:example.com
+root@debian /# cat /etc/apache2/sites-available/default-ssl.conf
+<VirtualHost *:443>
+ServerName kuzina.com
+DocumentRoot /var/www/html
+SSLEngine on
+SSLCertificateFile /etc/ssl/certs/apache-selfsigned.crt
+SSLCertificateKeyFile /etc/ssl/private/apache-selfsigned.key
+</VirtualHost>
+
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt -subj "/C=RU/ST=Moscow/L=Netology/O=DevSys_DPC_2_Kuzina/OU=Org/CN=www.kuzina.com"
 ````
+![Alt text](Задание_3_1.png)
+
+![Alt text](Задание_3_2.png)
+
+![Alt text](Задание_3_5.png)
+
+![Alt text](Задание_3_4.png)
+
+![Alt text](Задание_3_3.png)
 
 ### 4. Проверьте на TLS уязвимости произвольный сайт в интернете (кроме сайтов МВД, ФСБ, МинОбр, НацБанк, РосКосмос, РосАтом, РосНАНО и любых госкомпаний, объектов КИИ, ВПК ... и тому подобное).
 
-![](tls .png)
-![](tls_2 .png)
+![Alt text](tls.png)
+
+![Alt text](tls_2.png)
 
 ### 5. Установите на Ubuntu ssh сервер, сгенерируйте новый приватный ключ. Скопируйте свой публичный ключ на другой сервер. Подключитесь к серверу по SSH-ключу.
 
@@ -74,9 +46,7 @@ Email Address []:example.com
 C:\Users\A\.ssh>ssh root@127.0.0.1 -p 2222
 root@127.0.0.1's password:
 ```
-
-*добавляем публичный ключ windows в ubuntu и  успешно заходим:*
-
+*добавляем публичный ключ windows в ubuntu и успешно заходим:*
 ```
 root@vagrant:~/.ssh# echo "ssh-rsa public-key" >> ~/.ssh/authorized_keys
 
@@ -97,8 +67,7 @@ root@vagrant:~#
 
 ### 6. Переименуйте файлы ключей из задания 5. Настройте файл конфигурации SSH клиента, так чтобы вход на удаленный сервер осуществлялся по имени сервера.
 
-*Чтобы вход на удаленный сервер осуществлялся по имени сервера, добавим конфигурационный файл ssh* 
-
+*Чтобы вход на удаленный сервер осуществлялся по имени сервера, добавим конфигурационный файл ssh*
 ```
 C:\Users\A\.ssh
 Host ubuntu
@@ -112,7 +81,6 @@ Host ubuntu
 root@vagrant:~/.ssh# echo "ssh-rsa publik-key" >> known_hosts
 ```
 *Захоим по ssh windows в ubuntu*
-
 ```
 C:\Users\A\.ssh>ssh ubuntu
 Load key "C:\\Users\\A/.ssh/prkey": invalid format
@@ -128,10 +96,8 @@ This system is built by the Bento project by Chef Software
 More information can be found at https://github.com/chef/bento
 Last login: Mon Jan 31 19:25:53 2022 from 10.0.2.2
 ```
-
 ### 7. Соберите дамп трафика утилитой tcpdump в формате pcap, 100 пакетов. Откройте файл pcap в Wireshark.
-
-* собираем 100 файлов в формате pcap *
+*собираем 100 файлов в формате pcap*
 ```
 root@debian11:/# tcpdump -c 100 -i enp0s8
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
@@ -240,8 +206,7 @@ listening on enp0s8, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 122 packets received by filter
 0 packets dropped by kernel
 ```
-*записываем в файл 0001.pcap, слишком долго почему-то происходила запись - записал всего 10 файлов, я прервала операцию, не совсем поняла, почему долго записывалось в файл*
-
+*записываем в файл 0001.pcap*
 ```
 root@debian11:/# tcpdump -w 0001.pcap -i enp0s8
 tcpdump: listening on enp0s8, link-type EN10MB (Ethernet), snapshot length 262144 bytes
@@ -261,4 +226,3 @@ reading from file 0001.pcap, link-type EN10MB (Ethernet), snapshot length 262144
 23:17:46.875783 LLDP, length 216: debian11.debian11
 23:18:16.904151 LLDP, length 216: debian11.debian11
 ```
-
