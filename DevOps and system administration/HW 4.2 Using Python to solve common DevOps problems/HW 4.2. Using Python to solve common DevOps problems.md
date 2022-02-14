@@ -145,9 +145,11 @@ root@debian11:~# ./hw4.py
 drive.google.com 209.85.233.194
 mail.google.com 64.233.165.83
 google.com 64.233.165.139
+
 root@debian11:~# ls -l
 -rwxrwxrwx 1 root root 1142 фев  7 16:30 hw4.py
 -rw-r--r-- 1 root root   88 фев  7 16:30 myfile.txt
+
 root@debian11:~# cat myfile.txt
 drive.google.com;209.85.233.194
 mail.google.com;64.233.165.83
