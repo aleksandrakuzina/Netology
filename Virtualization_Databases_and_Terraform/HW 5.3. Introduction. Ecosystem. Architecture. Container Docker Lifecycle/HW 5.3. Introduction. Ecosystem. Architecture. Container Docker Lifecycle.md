@@ -96,4 +96,5 @@ drwxrwxrwt   1 root root 4096 Jan 26 08:58 tmp
 drwxr-xr-x   1 root root 4096 Jan 25 00:00 usr
 drwxr-xr-x   1 root root 4096 Jan 25 00:00 var
 ````
- 
+
+ ![Alt text](2022-02-18_170755.png)

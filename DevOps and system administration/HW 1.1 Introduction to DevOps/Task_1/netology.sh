@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 
 STUDENT_NAME="aleksandra kuzina"S
 
