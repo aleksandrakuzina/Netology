@@ -68,7 +68,7 @@ root@68b936262240:/# echo '<html><head>Hey, Netology</head><body><h1>I am DevOps
 root@debian .../lib/docker# docker ps -a
 CONTAINER ID   IMAGE     COMMAND                  CREATED             STATUS                       PORTS     NAMES
 68b936262240   nginx     "/docker-entrypoint.…"   8 minutes ago       Exited (0) 5 minutes ago               trusting_shaw
-````
+```` 
 проброс порта с виртуальной машины (8080) nginx (80)
 ````
 root@debian .../lib/docker# docker run -p 8080:80 -it nginx bash
