@@ -11,16 +11,18 @@
 
 ### 3. Установите apache2, сгенерируйте самоподписанный сертификат, настройте тестовый сайт для работы по HTTPS.
 
+Скорректировано задание 3
 ````
-root@debian /# cat /etc/apache2/sites-available/default-ssl.conf
+root@debian /etc/ssh# cat /etc/apache2/sites-enabled/default-ssl.conf
 <VirtualHost *:443>
-ServerName kuzina.com
+ServerName www.kuzina.com
 DocumentRoot /var/www/html
 SSLEngine on
 SSLCertificateFile /etc/ssl/certs/apache-selfsigned.crt
 SSLCertificateKeyFile /etc/ssl/private/apache-selfsigned.key
 </VirtualHost>
-
+````
+````
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt -subj "/C=RU/ST=Moscow/L=Netology/O=DevSys_DPC_2_Kuzina/OU=Org/CN=www.kuzina.com"
 ````
 ![Alt text](Задание_3_1.png)
@@ -41,62 +43,176 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apa
 
 ### 5. Установите на Ubuntu ssh сервер, сгенерируйте новый приватный ключ. Скопируйте свой публичный ключ на другой сервер. Подключитесь к серверу по SSH-ключу.
 
-*Пытаемся зайти на сервер по ssh*
+Скорректировано задание 5
+*Передаем публичный ssh ключ в дебиан*
 ```
-C:\Users\A\.ssh>ssh root@127.0.0.1 -p 2222
-root@127.0.0.1's password:
+root@debian ~/.ssh# echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9ustRJdYxZqIJktG9zorl9WYfkaj0iSZXlVJOYPVPKve8qrTOVepqpL5C2of4AozM6Q0Ix0Kppz0VKS9uqj9JCFCYPZRQtPaU0gxhOt1i9C4iefFBVsHaQHvImyMWsPpeg3ThDVBZnclE/X9CQR5gT9RW0CrDFJzfiLfnUjSoaaz3dXcQurqo/ZVO6cbrZWWKMaNSkgmLKyQE55nh+TOYnE74ijVn8UJjkNoeOicpBTUGWa6ZIcXL7ag6wsiJcmUPPofxhbzlhB6gCa+3v6SQ92FfJRe9w+LVixuWgHoTFZ8RrBaSp14SFxprrwkZEQyfBR9uMZAxHZcxmnpGHrKel0bNnJMVrITzSnCCRB5t1VE2JbNhqhO5HL+ras8XOZz80Kj57K6E1hYb+OtdscnBPbNOtxa6Q+kwX+gjqGXqIJrmaD8iCnLI+hvUhX2cNzi5TZWt6UBhIEpMcly0o+krkXQfpWpHaShTaKi1+BrD9R+3fBW18uRkajZPY0b3lC0= sasha@DESKTOP-629HIOD" >> ~/.ssh/authorized_keys
 ```
-*добавляем публичный ключ windows в ubuntu и успешно заходим:*
+*заходим по ключу из windows в дебиан*
 ```
-root@vagrant:~/.ssh# echo "ssh-rsa public-key" >> ~/.ssh/authorized_keys
+C:\WINDOWS\system32>ssh -v  root@192.168.0.226
+OpenSSH_for_Windows_8.1p1, LibreSSL 3.0.2
+debug1: Connecting to 192.168.0.226 [192.168.0.226] port 22.
+debug1: Connection established.
+debug1: identity file C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_rsa type 0
+debug1: identity file C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_rsa-cert type -1
+debug1: identity file C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_dsa type -1
+debug1: identity file C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_dsa-cert type -1
+debug1: identity file C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_ecdsa type -1
+debug1: identity file C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_ecdsa-cert type -1
+debug1: identity file C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_ed25519 type -1
+debug1: identity file C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_ed25519-cert type -1
+debug1: identity file C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_xmss type -1
+debug1: identity file C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_xmss-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_for_Windows_8.1
+debug1: Remote protocol version 2.0, remote software version OpenSSH_7.9p1 Debian-10+deb10u2
+debug1: match: OpenSSH_7.9p1 Debian-10+deb10u2 pat OpenSSH* compat 0x04000000
+debug1: Authenticating to 192.168.0.226:22 as 'root'
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ecdsa-sha2-nistp256
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: Server host key: ecdsa-sha2-nistp256 SHA256:WgDgaAq5/f+OD/HQ4YIwpo4GnNzTHUePfAJSCrWzrNs
+debug1: Host '192.168.0.226' is known and matches the ECDSA host key.
+debug1: Found key in C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/known_hosts:1
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: pubkey_prepare: ssh_get_authentication_socket: No such file or directory
+debug1: Will attempt key: C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_rsa RSA SHA256:6PeU91XGCYQFWK98s+brNNsvt6blDCNjEvf/PUrygV4
+debug1: Will attempt key: C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_dsa
+debug1: Will attempt key: C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_ecdsa
+debug1: Will attempt key: C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_ed25519
+debug1: Will attempt key: C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_xmss
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<ssh-ed25519,ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey,password
+debug1: Next authentication method: publickey
+debug1: Offering public key: C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_rsa RSA SHA256:6PeU91XGCYQFWK98s+brNNsvt6blDCNjEvf/PUrygV4
+debug1: Server accepts key: C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/id_rsa RSA SHA256:6PeU91XGCYQFWK98s+brNNsvt6blDCNjEvf/PUrygV4
+debug1: Authentication succeeded (publickey).
+Authenticated to 192.168.0.226 ([192.168.0.226]:22).
+debug1: channel 0: new [client-session]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: network
+debug1: ENABLE_VIRTUAL_TERMINAL_INPUT is supported. Reading the VTSequence from console
+debug1: ENABLE_VIRTUAL_TERMINAL_PROCESSING is supported. Console supports the ansi parsing
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: Remote: /root/.ssh/authorized_keys:1: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+debug1: Remote: /root/.ssh/authorized_keys:1: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+Linux debian 4.19.0-18-amd64 #1 SMP Debian 4.19.208-1 (2021-09-29) x86_64
 
-C:\Users\A\.ssh>ssh root@127.0.0.1 -p 2222
-Welcome to Ubuntu 20.04.2 LTS (GNU/Linux 5.4.0-80-generic x86_64)
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
 
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
-
-  System information as of Mon 31 Jan 2022 06:41:34 PM UTC
-
-This system is built by the Bento project by Chef Software
-More information can be found at https://github.com/chef/bento
-Last login: Mon Jan 31 18:36:01 2022 from 10.0.2.2
-root@vagrant:~#
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Tue Feb 22 14:17:19 2022 from 192.168.0.224
+root@debian ~#
 ```
 
 ### 6. Переименуйте файлы ключей из задания 5. Настройте файл конфигурации SSH клиента, так чтобы вход на удаленный сервер осуществлялся по имени сервера.
 
-*Чтобы вход на удаленный сервер осуществлялся по имени сервера, добавим конфигурационный файл ssh*
+Скорректировано задание 6
+*Папка с ключами в моем windows*
 ```
-C:\Users\A\.ssh
-Host ubuntu
-  HostName 127.0.0.1
+ Directory of C:\Users\Sasha.DESKTOP-629HIOD\.ssh
+
+22.02.2022  14:37    <DIR>          .
+22.02.2022  14:37    <DIR>          ..
+22.02.2022  13:59             2 610 id_rsa
+22.02.2022  13:59               576 id_rsa.pub
+22.02.2022  14:17               176 known_hosts
+               3 File(s)          3 362 bytes
+               2 Dir(s)  130 123 853 824 bytes free
+
+C:\Users\Sasha.DESKTOP-629HIOD\.ssh>copy id_rsa prkey
+        1 file(s) copied.
+
+C:\Users\Sasha.DESKTOP-629HIOD\.ssh>copy id_rsa.pub prkey.pub
+        1 file(s) copied.
+```
+*Конфигурационный файл с алиасом и измененным ключем*
+```	
+C:\Users\Sasha.DESKTOP-629HIOD\.ssh>type config
+Host debian
+  HostName 192.168.0.226
   IdentityFile ~/.ssh/prkey
   User root
-  Port 2222
+  Port 22
   #StrictHostKeyChecking no
 ```
-```
-root@vagrant:~/.ssh# echo "ssh-rsa publik-key" >> known_hosts
-```
-*Захоим по ssh windows в ubuntu*
-```
-C:\Users\A\.ssh>ssh ubuntu
-Load key "C:\\Users\\A/.ssh/prkey": invalid format
-Welcome to Ubuntu 20.04.2 LTS (GNU/Linux 5.4.0-80-generic x86_64)
+*захододим по алиасу*
 
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
+````
+C:\Users\Sasha.DESKTOP-629HIOD\.ssh>ssh -v  debian
+OpenSSH_for_Windows_8.1p1, LibreSSL 3.0.2
+debug1: Reading configuration data C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/config
+debug1: C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/config line 1: Applying options for debian
+debug1: Connecting to debian [192.168.0.226] port 22.
+debug1: Connection established.
+debug1: identity file C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/prkey type 0
+debug1: identity file C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/prkey-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_for_Windows_8.1
+debug1: Remote protocol version 2.0, remote software version OpenSSH_7.9p1 Debian-10+deb10u2
+debug1: match: OpenSSH_7.9p1 Debian-10+deb10u2 pat OpenSSH* compat 0x04000000
+debug1: Authenticating to 192.168.0.226:22 as 'root'
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ecdsa-sha2-nistp256
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: Server host key: ecdsa-sha2-nistp256 SHA256:WgDgaAq5/f+OD/HQ4YIwpo4GnNzTHUePfAJSCrWzrNs
+debug1: Host '192.168.0.226' is known and matches the ECDSA host key.
+debug1: Found key in C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/known_hosts:1
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: pubkey_prepare: ssh_get_authentication_socket: No such file or directory
+debug1: Will attempt key: C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/prkey RSA SHA256:6PeU91XGCYQFWK98s+brNNsvt6blDCNjEvf/PUrygV4 explicit
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<ssh-ed25519,ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey,password
+debug1: Next authentication method: publickey
+debug1: Offering public key: C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/prkey RSA SHA256:6PeU91XGCYQFWK98s+brNNsvt6blDCNjEvf/PUrygV4 explicit
+debug1: Server accepts key: C:\\Users\\Sasha.DESKTOP-629HIOD/.ssh/prkey RSA SHA256:6PeU91XGCYQFWK98s+brNNsvt6blDCNjEvf/PUrygV4 explicit
+debug1: Authentication succeeded (publickey).
+Authenticated to 192.168.0.226 ([192.168.0.226]:22).
+debug1: channel 0: new [client-session]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: network
+debug1: ENABLE_VIRTUAL_TERMINAL_INPUT is supported. Reading the VTSequence from console
+debug1: ENABLE_VIRTUAL_TERMINAL_PROCESSING is supported. Console supports the ansi parsing
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: Remote: /root/.ssh/authorized_keys:1: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+debug1: Remote: /root/.ssh/authorized_keys:1: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+Linux debian 4.19.0-18-amd64 #1 SMP Debian 4.19.208-1 (2021-09-29) x86_64
 
-  System information as of Mon 31 Jan 2022 07:29:41 PM UTC
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
 
-This system is built by the Bento project by Chef Software
-More information can be found at https://github.com/chef/bento
-Last login: Mon Jan 31 19:25:53 2022 from 10.0.2.2
-```
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Tue Feb 22 15:54:09 2022 from 192.168.0.224
+root@debian ~#
+````
 ### 7. Соберите дамп трафика утилитой tcpdump в формате pcap, 100 пакетов. Откройте файл pcap в Wireshark.
+
 *собираем 100 файлов в формате pcap*
 ```
 root@debian11:/# tcpdump -c 100 -i enp0s8
