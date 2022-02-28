@@ -5,7 +5,7 @@
 ### 2. Установите Google authenticator на мобильный телефон. Настройте вход в Bitwarden аккаунт через Google authenticator OTP
 
 *Google authenticator установлен код генерируется каждые 30 секунд, вход с помощью двухфакторной аутентификации выполнен (ввод пароля + код OTP)*
-![Alt text](Задание_2_1.png)
+![Alt text](Задание_2_1.png)5н6е
 
 ![Alt text](Задание_2_2.png)
 
