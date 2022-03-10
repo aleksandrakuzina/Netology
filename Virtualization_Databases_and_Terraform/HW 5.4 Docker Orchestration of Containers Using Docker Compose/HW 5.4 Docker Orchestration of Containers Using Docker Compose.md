@@ -83,11 +83,11 @@ key_algorithm: RSA_2048
 ````
 Создана WM
 
-![Alt text](Screenshot 2022-03-10 212646.png)
+![Alt text](Screenshot_2022-03-10_212646.png)
 
-![Alt text](Screenshot 2022-03-10 223940.png)
+![Alt text](Screenshot_2022-03-10_223940.png)
 
-![Alt text](Screenshot 2022-03-10 224029.png)
+![Alt text](Screenshot_2022-03-10_224029.png)
 
 ![Alt text](Задание2_WM_info.png)
 
@@ -100,4 +100,4 @@ key_algorithm: RSA_2048
 * Скриншот работающего веб-интерфейса Grafana с текущими метриками, как на примере ниже
 
 
-![Alt text](Screenshot 2022-03-10 234722.png)
+![Alt text](Screenshot_2022-03-10_234722.png)
