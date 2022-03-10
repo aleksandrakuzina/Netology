@@ -137,3 +137,4 @@ drwxr-xr-x   1 root root 4096 Jan 25 00:00 var
 
 >   Gitlab сервер для реализации CI/CD процессов и приватный (закрытый) Docker Registry.
 >   Docker-контейнеризация.
+
