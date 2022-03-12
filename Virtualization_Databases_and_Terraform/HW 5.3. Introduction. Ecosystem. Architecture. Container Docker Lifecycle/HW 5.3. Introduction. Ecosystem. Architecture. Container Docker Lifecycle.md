@@ -138,3 +138,65 @@ drwxr-xr-x   1 root root 4096 Jan 25 00:00 var
 >   Gitlab сервер для реализации CI/CD процессов и приватный (закрытый) Docker Registry.
 >   Docker-контейнеризация.
 
+### Задание 3 
+
+
+    * Запустите первый контейнер из образа centos c любым тэгом в фоновом режиме, подключив папку /data из текущей рабочей директории на хостовой машине в /data контейнера;
+    * Запустите второй контейнер из образа debian в фоновом режиме, подключив папку /data из текущей рабочей директории на хостовой машине в /data контейнера;
+    * Подключитесь к первому контейнеру с помощью docker exec и создайте текстовый файл любого содержания в /data;
+    * Добавьте еще один файл в папку /data на хостовой машине;
+    * Подключитесь во второй контейнер и отобразите листинг и содержание файлов в /data контейнера.
+
+
+Создаем образ debian centos
+```
+root@debian11:/home/def_user# docker images
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+debian        latest    d40157244907   11 days ago    124MB
+hello-world   latest    feb5d9fea6a5   5 months ago   13.3kB
+centos        latest    5d0da3dc9764   5 months ago   231MB
+```
+
+Создаем папку /data на хостовой машине
+```
+root@debian11:/home/def_user# mkdir /data
+root@debian11:/home/def_user# ls -l / | grep data
+drwxr-xr-x   2 root     root      4096 мар 12 17:26 data
+```
+
+Монтируем папку /data на хостовой машине в создаваемые контенейры из существующих образов
+```
+root@debian11:/# docker run --name Centos -v /data:/data:rw centos
+root@debian11:/# docker run --name Debian -v /data:/data:rw debian
+root@debian11:/# docker ps -a
+CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS                      PORTS     NAMES
+aab8de75f1d7   debian    "bash"        6 seconds ago    Exited (0) 4 seconds ago              Debian
+6609b067db8d   centos    "/bin/bash"   32 seconds ago   Exited (0) 31 seconds ago             Centos
+```
+
+Подключаемся к первому контейнеру с помощью docker exec и создаем текстовый файл любого содержания в /data
+```
+root@debian11:/# docker exec -it Debian touch /data/test_file
+root@debian11:/# docker attach Debian
+root@aab8de75f1d7:/# ls -l data/
+total 0
+-rw-r--r-- 1 root root 0 Mar 12 15:14 test_file
+```
+
+Создаем файл в папке /data на хостовой машине
+```
+root@debian11:/data# touch hello_from_host_machine
+root@debian11:/data# ls -l
+итого 0
+-rw-r--r-- 1 root root 0 мар 12 18:19 hello_from_host_machine
+-rw-r--r-- 1 root root 0 мар 12 18:14 test_file
+```
+
+Выводим листинг во втором контейнере
+```
+root@debian11:/home/def_user# docker attach Centos
+[root@6609b067db8d /]# ls -l /data
+total 0
+-rw-r--r-- 1 root root 0 Mar 12 15:19 hello_from_host_machine
+-rw-r--r-- 1 root root 0 Mar 12 15:14 test_file
+```
