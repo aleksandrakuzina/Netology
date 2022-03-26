@@ -5,7 +5,7 @@
     Создать доски kanban и scrum
 
 #### Созданы проекты и доски kanban и scrum
-![](.HW 09.01 Software lifecycle_images/fd4b28c9.png)
+![](fd4b28c9.png)
 
 Основная часть
 
