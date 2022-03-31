@@ -9,98 +9,115 @@ dokerfile
 ````
 root@vagrant:/home/vagrant/elasticsearch# cat dockerfile
 FROM centos:7
-EXPOSE 9200
 RUN adduser -mr elastic && mkdir /var/lib/elastic && chown elastic /var/lib/elastic
 USER elastic
-RUN cd && curl https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.1.1-linux-x86_64.tar.gz --output elastic.tar.gz && tar -xvf elastic.tar.gz && rm elastic.tar.gz
-ENV ES_HOME=./elasticsearch-8.1.1
-ADD elasticsearch.yml $ES_HOME/config/elasticsearch.yml
-RUN cd && echo "node.name: netology_test" >> $ES_HOME/config/elasticsearch.yml && echo "path.data: /var/lib/elastic" >> $ES_HOME/config/elasticsearch.yml
-CMD $HOME/$ES_HOME/bin/elasticsearch
+RUN cd && curl https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.1.1-linux-x86_64.tar.gz --output elasticsearch-8.1.1-linux-x86_64.tar.gz && tar -xzf elasticsearch-8.1.1-linux-x86_64.tar.gz && rm elasticsearch-8.1.1-linux-x86_64.tar.gz && cd elasticsearch-8.1.1/ && echo "node.name: netology_test" >> config/elasticsearch.yml && echo "path.data: /var/lib/elastic" >> config/elasticsearch.yml
+EXPOSE 9200
+CMD $HOME/elasticsearch-8.1.1/bin/elasticsearch
 ````
 
-docker build ./
+docker build .
 ````
-...
-Step 5/9 : RUN cd && curl https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.1.1-linux-x86_64.tar.gz --output elastic.tar.gz && tar -xvf elastic.tar.gz && rm elastic.tar.gz
- ---> Running in 5da8968bd132
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   134  100   134    0     0    251      0 --:--:-- --:--:-- --:--:--   251
-tar: This does not look like a tar archive
-
-gzip: stdin: not in gzip format
-tar: Child returned status 1
-tar: Error is not recoverable: exiting now
-````
-
-
-Здесь, в dockefile, изменены лишь ключи в распаковке файла "tar -cfxvz"
-````
-root@vagrant:/home/vagrant/elasticsearch# docker build ./
-Sending build context to Docker daemon  515.8MB
-Step 1/9 : FROM centos:7
+root@vagrant:/home/vagrant/elasticsearch# docker build .
+Sending build context to Docker daemon  1.617GB
+Step 1/6 : FROM centos:7
+7: Pulling from library/centos
+2d473b07cdd5: Pull complete
+Digest: sha256:c73f515d06b0fa07bb18d8202035e739a494ce760aa73129f60f4bf2bd22b407
+Status: Downloaded newer image for centos:7
  ---> eeb6ee3f44bd
-Step 2/9 : EXPOSE 9200
- ---> Using cache
- ---> 5da4e47c8e3b
-Step 3/9 : RUN adduser -mr elastic && mkdir /var/lib/elastic && chown elastic /var/lib/elastic
- ---> Using cache
- ---> 21c992c65180
-Step 4/9 : USER elastic
- ---> Using cache
- ---> 185b555092e8
-Step 5/9 : RUN cd && curl https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.1.1-linux-x86_64.tar.gz --output elastic.tar.gz && tar -cfxvz elastic.tar.gz && rm elastic.tar.gz
- ---> Running in 1f06cbc7fe7f
+Step 2/6 : RUN adduser -mr elastic && mkdir /var/lib/elastic && chown elastic /var/lib/elastic
+ ---> Running in b458fa0acc7f
+Removing intermediate container b458fa0acc7f
+ ---> fb3b78ea6b34
+Step 3/6 : USER elastic
+ ---> Running in 7a95a17b7415
+Removing intermediate container 7a95a17b7415
+ ---> f6f8a9254f94
+Step 4/6 : RUN cd && curl https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.1.1-linux-x86_64.tar.gz --output elasticsearch-8.1.1-linux-x86_64.tar.gz && tar -xzf elasticsearch-8.1.1-linux-x86_64.tar.gz && rm elasticsearch-8.1.1-linux-x86_64.tar.gz && cd elasticsearch-8.1.1/ && echo "node.name: netology_test" >> config/elasticsearch.yml && echo "path.data: /var/lib/elastic" >> config/elasticsearch.yml
+ ---> Running in 3a6bfc2515f9
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100   134  100   134    0     0    363      0 --:--:-- --:--:-- --:--:--   363
-Removing intermediate container 1f06cbc7fe7f
- ---> 70d9d782eaf2
-Step 6/9 : ENV ES_HOME=./elasticsearch-8.1.1
- ---> Running in acd6d56b69ab
-Removing intermediate container acd6d56b69ab
- ---> a9d2e87cc003
-Step 7/9 : ADD elasticsearch.yml $ES_HOME/config/elasticsearch.yml
-ADD failed: file not found in build context or excluded by .dockerignore: stat elasticsearch.yml: file does not exist
+100  491M  100  491M    0     0  6728k      0  0:01:14  0:01:14 --:--:-- 6864k
+Removing intermediate container 3a6bfc2515f9
+ ---> 1ee54fb30cd3
+Step 5/6 : EXPOSE 9200
+ ---> Running in f00ca4ca9bea
+Removing intermediate container f00ca4ca9bea
+ ---> d696dd0b399d
+Step 6/6 : CMD $HOME/elasticsearch-8.1.1/bin/elasticsearch
+ ---> Running in 2cd8200ecf86
+Removing intermediate container 2cd8200ecf86
+ ---> 93a4ba9d7980
+Successfully built 93a4ba9d7980
 ````
 
+Запуск контейнера и просмотр его статуса
+````
+root@vagrant:/home/vagrant/elasticsearch# docker run -dp 9200:9200 93a4ba9d7980
+20f6a0aa0c76085b96b30ff4c16cf368cec12a3a0d66cf29f11e789f2fbf751b
+
+root@vagrant:/home/vagrant/elasticsearch# docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                                       NAMES
+20f6a0aa0c76   93a4ba9d7980   "/bin/sh -c $HOME/el…"   5 seconds ago   Up 4 seconds   0.0.0.0:9200->9200/tcp, :::9200->9200/tcp   reverent_wozniak
+````
+
+Меняем пароль
+````
+root@vagrant:/home/vagrant/elasticsearch# docker exec -it reverent_wozniak /home/elastic/elasticsearch-8.1.1/bin/elasticsearch-reset-password -u elastic
+This tool will reset the password of the [elastic] user to an autogenerated value.
+The password will be printed in the console.
+Please confirm that you would like to continue [y/N]y
 
 
+Password for the [elastic] user successfully reset.
+New value: 0YeC8hB6t+F1INswDmqh
+````
 
+Проверяем подключение через curl
+````
+root@vagrant:/home/vagrant# curl -ku elastic https://localhost:9200
+Enter host password for user 'elastic':
+{
+  "name" : "netology_test",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "_nPWyGVnSamDcHnukZ6d4w",
+  "version" : {
+    "number" : "8.1.1",
+    "build_flavor" : "default",
+    "build_type" : "tar",
+    "build_hash" : "d0925dd6f22e07b935750420a3155db6e5c58381",
+    "build_date" : "2022-03-17T22:01:32.658689558Z",
+    "build_snapshot" : false,
+    "lucene_version" : "9.0.0",
+    "minimum_wire_compatibility_version" : "7.17.0",
+    "minimum_index_compatibility_version" : "7.0.0"
+  },
+  "tagline" : "You Know, for Search"
+}
+````
 
+Создаём тэг, логинимся и пушим образ
+````
+root@vagrant:/home/vagrant# docker tag 93a4ba9d7980 alleksandra/6.5
+root@vagrant:/home/vagrant# docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: alleksandra
+Password:
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
 
-
-
-
-
-
-*Используя докер образ centos:7 как базовый и документацию по установке и запуску Elastcisearch:*
-
-* составьте Dockerfile-манифест для elasticsearch
-* соберите docker-образ и сделайте push в ваш docker.io репозиторий
-* запустите контейнер из получившегося образа и выполните запрос пути / c хост-машины
-
-Требования к elasticsearch.yml:
-  * *данные path должны сохраняться в /var/lib*
-  * *имя ноды должно быть netology_test*
-
-В ответе приведите:
-* текст Dockerfile манифеста
-* ссылку на образ в репозитории dockerhub
-* ответ elasticsearch на запрос пути / в json виде
-
-Подсказки:
-
-*возможно вам понадобится установка пакета perl-Digest-SHA для корректной работы пакета shasum*
-
-*при сетевых проблемах внимательно изучите кластерные и сетевые настройки в elasticsearch.yml*
-
-*при некоторых проблемах вам поможет docker директива ulimit*
-
-*elasticsearch в логах обычно описывает проблему и пути ее решения*
-
-*Далее мы будем работать с данным экземпляром elasticsearch.*
+Login Succeeded
+root@vagrant:/home/vagrant# docker push alleksandra/6.5
+Using default tag: latest
+The push refers to repository [docker.io/alleksandra/6.5]
+d103e5d2665b: Pushed
+6282ae7f6366: Pushed
+174f56854903: Mounted from library/centos
+latest: digest: sha256:00821e8322f15873c3d9d77b3c35f580c1188e8240a048a5184d629111220260 size: 950
+````
+[Ссылка на репозиторий](https://hub.docker.com/repository/docker/alleksandra/6.5)
 
 ### Задача 2
 
@@ -110,47 +127,218 @@ ADD failed: file not found in build context or excluded by .dockerignore: stat e
     изучать состояние кластера
     обосновывать причину деградации доступности данных
 
-* Ознакомтесь с документацией и добавьте в elasticsearch 3 индекса, в соответствии с таблицей:
+Ознакомтесь с документацией и добавьте в elasticsearch 3 индекса, в соответствии с таблицей:
 
-Имя | Количество реплик | Количество шард
------- | ------------ | ------
-ind-1  |  0           | 1  
-ind-2  |  1           | 2
-ind-3  |  2           | 4  
+|  Имя  | Количество реплик | Количество шард |
+|-------|-------------------|-----------------|
+| ind-1 |         0         |        1        |
+| ind-2 |         1         |        2        |
+| ind-3 |         2         |        4        |
 
+ind-1
 
+````
+root@vagrant:/home/vagrant# curl -ku elastic -X PUT "https://localhost:9200/ind-1" -H 'Content-Type: application/json' -d'
+> {
+>   "settings": {
+>     "index": {
+>       "number_of_shards": 1,
+>       "number_of_replicas": 0
+>     }
+>   }
+> }
+> '
+Enter host password for user 'elastic':
+{"acknowledged":true,"shards_acknowledged":true,"index":"ind-1"}
+````
 
-* Получите список индексов и их статусов, используя API и приведите в ответе на задание.
-* Получите состояние кластера elasticsearch, используя API.
-* Как вы думаете, почему часть индексов и кластер находится в состоянии yellow?
-* Удалите все индексы.
+ind-2
 
-*Важно:При проектировании кластера elasticsearch нужно корректно рассчитывать количество реплик и шард, иначе возможна потеря данных индексов, вплоть до полной, при деградации системы.*
+````
+root@vagrant:/home/vagrant# curl -ku elastic -X PUT "https://localhost:9200/ind-2" -H 'Content-Type: application/json' -d'
+> {
+>   "settings": {
+>     "index": {
+>       "number_of_shards": 2,
+>       "number_of_replicas": 1
+>     }
+>   }
+> }
+> '
+Enter host password for user 'elastic':
+{"acknowledged":true,"shards_acknowledged":true,"index":"ind-2"}
+````
+
+ind-3
+
+````
+root@vagrant:/home/vagrant# curl -ku elastic -X PUT "https://localhost:9200/ind-3" -H 'Content-Type: application/json' -d'
+> {
+>   "settings": {
+>     "index": {
+>       "number_of_shards": 4,
+>       "number_of_replicas": 2
+>     }
+>   }
+> }
+> '
+Enter host password for user 'elastic':
+{"acknowledged":true,"shards_acknowledged":true,"index":"ind-3"}
+````
+
+Получите список индексов и их статусов, используя API и приведите в ответе на задание.
+````
+root@vagrant:/home/vagrant# curl -ku elastic https://localhost:9200/_cat/indices
+Enter host password for user 'elastic':
+green  open ind-1 YNWWvyZASrS0Uq3KfQIoOg 1 0 0 0 225b 225b
+yellow open ind-3 ZZH6MJMoS2-oVdgwehtXOA 4 2 0 0 900b 900b
+yellow open ind-2 oH2POkH3QHa5qgq1ALc-RA 2 1 0 0 450b 450b
+````
+
+Получите состояние кластера elasticsearch, используя API.
+````
+root@vagrant:/home/vagrant# curl -ku elastic https://localhost:9200/_cluster/health?pretty
+Enter host password for user 'elastic':
+{
+  "cluster_name" : "elasticsearch",
+  "status" : "yellow",
+  "timed_out" : false,
+  "number_of_nodes" : 1,
+  "number_of_data_nodes" : 1,
+  "active_primary_shards" : 9,
+  "active_shards" : 9,
+  "relocating_shards" : 0,
+  "initializing_shards" : 0,
+  "unassigned_shards" : 10,
+  "delayed_unassigned_shards" : 0,
+  "number_of_pending_tasks" : 0,
+  "number_of_in_flight_fetch" : 0,
+  "task_max_waiting_in_queue_millis" : 0,
+  "active_shards_percent_as_number" : 47.368421052631575
+}
+````
+
+Как вы думаете, почему часть индексов и кластер находится в состоянии yellow?
+
+````
+"Yellow" индексы созданы с количеством реплик и шард больше имеющихся. Кластер в состоянии "yellow" потому, что количество unassigned_shards > 0.
+````
+
+Удалите все индексы.
+
+````
+root@vagrant:/home/vagrant# curl -ku elastic -X DELETE https://localhost:9200/ind-1
+Enter host password for user 'elastic':
+{"acknowledged":true}
+root@vagrant:/home/vagrant# curl -ku elastic -X DELETE https://localhost:9200/ind-2
+Enter host password for user 'elastic':
+{"acknowledged":true}
+root@vagrant:/home/vagrant# curl -ku elastic -X DELETE https://localhost:9200/ind-3
+Enter host password for user 'elastic':
+{"acknowledged":true}
+````
 
 ### Задача 3
 
 В данном задании вы научитесь:
 
-     создавать бэкапы данных
-     восстанавливать индексы из бэкапов
+    создавать бэкапы данных
+    восстанавливать индексы из бэкапов
 
-* Создайте директорию {путь до корневой директории с elasticsearch в образе}/snapshots.
+Создайте директорию {путь до корневой директории с elasticsearch в образе}/snapshots.
+````
+root@vagrant:/home/vagrant# docker exec -it reverent_wozniak mkdir /home/elastic/elasticsearch-8.1.1/snapshots
+````
 
-* Используя API зарегистрируйте данную директорию как snapshot repository c именем netology_backup.
+Используя API зарегистрируйте данную директорию как snapshot repository c именем netology_backup.
+````
+root@vagrant:/home/vagrant# curl -ku elastic -X PUT "https://localhost:9200/_snapshot/netology_backup?pretty" -H 'Content-Type: application/json' -d' { "type": "fs", "settings": { "location": "/home/elastic/elasticsearch-8.1.1/snapshots" } } '
+Enter host password for user 'elastic':
+{
+  "error" : {
+    "root_cause" : [
+      {
+        "type" : "repository_exception",
+        "reason" : "[netology_backup] location [/home/elastic/elasticsearch-8.1.1/snapshots] doesn't match any of the locations specified by path.repo because this setting is empty"
+      }
+    ],
+    "type" : "repository_exception",
+    "reason" : "[netology_backup] failed to create repository",
+    "caused_by" : {
+      "type" : "repository_exception",
+      "reason" : "[netology_backup] location [/home/elastic/elasticsearch-8.1.1/snapshots] doesn't match any of the locations specified by path.repo because this setting is empty"
+    }
+  },
+  "status" : 500
+}
+````
 
-* Приведите в ответе запрос API и результат вызова API для создания репозитория.
+Приведите в ответе запрос API и результат вызова API для создания репозитория.
 
-* Создайте индекс test с 0 реплик и 1 шардом и приведите в ответе список индексов.
+Разместим каталог снапшотов в /var/lib/elastic/snapshots, модифицируем Dockerfile и пересоберём образ:
+````
+root@vagrant:/home/vagrant/elasticsearch# cat dockerfile
+FROM centos:7
+RUN adduser -mr elastic && mkdir -p /var/lib/elastic/snapshots && chown -R elastic /var/lib/elastic/snapshots
+USER elastic
+RUN cd && curl https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.1.1-linux-x86_64.tar.gz --output elasticsearch-8.1.1-linux-x86_64.tar.gz && tar -xzf elasticsearch-8.1.1-linux-x86_64.tar.gz && rm elasticsearch-8.1.1-linux-x86_64.tar.gz && cd elasticsearch-8.1.1/ && echo "node.name: netology_test" >> config/elasticsearch.yml && echo "path.data: /var/lib/elastic/snapshots" >> config/elasticsearch.yml
+EXPOSE 9200
+CMD $HOME/elasticsearch-8.1.1/bin/elasticsearch
+````
 
-* Создайте snapshot состояния кластера elasticsearch.
+Соберём образ
+````
+root@vagrant:/home/vagrant/elasticsearch# docker build .
+Sending build context to Docker daemon  515.8MB
+Step 1/6 : FROM centos:7
+ ---> eeb6ee3f44bd
+Step 2/6 : RUN adduser -mr elastic && mkdir -p /var/lib/elastic/snapshots && chown -R elastic /var/lib/elastic/snapshots
+ ---> Running in b3de11349838
+Removing intermediate container b3de11349838
+ ---> b46ba0b562ba
+Step 3/6 : USER elastic
+ ---> Running in cf1509cb0bee
+Removing intermediate container cf1509cb0bee
+ ---> dbe486804bcb
+Step 4/6 : RUN cd && curl https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.1.1-linux-x86_64.tar.gz --output elasticsearch-8.1.1-linux-x86_64.tar.gz && tar -xzf elasticsearch-8.1.1-linux-x86_64.tar.gz && rm elasticsearch-8.1.1-linux-x86_64.tar.gz && cd elasticsearch-8.1.1/ && echo "node.name: netology_test" >> config/elasticsearch.yml && echo "path.data: /var/lib/elastic/snapshots" >> config/elasticsearch.yml
+ ---> Running in 4e2875daace7
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  491M  100  491M    0     0  6429k      0  0:01:18  0:01:18 --:--:-- 7154k
+Removing intermediate container 4e2875daace7
+ ---> 1f57354550f6
+Step 5/6 : EXPOSE 9200
+ ---> Running in e8d8591d531d
+Removing intermediate container e8d8591d531d
+ ---> f7a6dbbc4d91
+Step 6/6 : CMD $HOME/elasticsearch-8.1.1/bin/elasticsearch
+ ---> Running in 86fcb6cfa569
+Removing intermediate container 86fcb6cfa569
+ ---> 132940024c77
+Successfully built 132940024c77
+````
 
-* Приведите в ответе список файлов в директории со snapshotами.
+Запустим контейнер с новым образом
+````
+root@vagrant:/home/vagrant/elasticsearch# docker run -dp 9200:9200 132940024c77
+51beb9f36c6e88eadec2f99effc9877dfd4676d8b47a71e4db3c6499407b6e8e
+````
 
-* Удалите индекс test и создайте индекс test-2. Приведите в ответе список индексов.
+Проверим, запустился ли конейнер
+````
+root@vagrant:/home/vagrant/elasticsearch# docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                                       NAMES
+51beb9f36c6e   132940024c77   "/bin/sh -c $HOME/el…"   4 seconds ago   Up 3 seconds   0.0.0.0:9200->9200/tcp, :::9200->9200/tcp   strange_panini
+````
 
-* Восстановите состояние кластера elasticsearch из snapshot, созданного ранее.
+Сменим пароль
+````
+root@vagrant:/home/vagrant/elasticsearch# docker exec -it strange_panini /home/elastic/elasticsearch-8.1.1/bin/elasticsearch-reset-password -u elastic
+This tool will reset the password of the [elastic] user to an autogenerated value.
+The password will be printed in the console.
+Please confirm that you would like to continue [y/N]y
 
-* Приведите в ответе запрос к API восстановления и итоговый список индексов.
 
-Подсказки:
-*возможно вам понадобится доработать elasticsearch.yml в части директивы path.repo и перезапустить elasticsearch*
+Password for the [elastic] user successfully reset.
+New value: Lqji-dbcYrpTiiozL4T4
+````
