@@ -188,6 +188,7 @@ bash-4.4$ cat nexus-data/admin.password
 
 Смотрим `maven-metadata.xml`:
 ![Alt text](maven-metadata_xml.png)
+
 [maven-metadata.xml](maven-metadata.xml)
 
 ##Знакомство с Maven
