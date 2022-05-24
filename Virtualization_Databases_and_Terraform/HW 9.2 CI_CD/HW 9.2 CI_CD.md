@@ -230,7 +230,7 @@ Default locale: en_US, platform encoding: UTF-8
 OS name: "linux", version: "5.4.0-80-generic", arch: "amd64", family: "unix"
 ```
 
-###Основная часть
+### Основная часть
 
 Меняем в `pom.xml` блок с зависимостями под наш артефакт из первого пункта задания для `Nexus` (java с версией 8_282)
 Запускаем команду `mvn package` в директории с `pom.xml`, ожидаем успешного окончания:
