@@ -1,5 +1,5 @@
-##Знакомство с SonarQube
-###Подготовка к выполнению
+## Знакомство с SonarQube
+### Подготовка к выполнению
 
 Скачиваем образ `sonarqube`:
 ```
@@ -42,7 +42,7 @@ root@vagrant:/home/vagrant# docker logs -f sonarqube
 2022.05.23 18:18:21 INFO  ce[][o.s.c.t.CeWorkerImpl] worker AYDyJC-KG89XhGXZ8tyS found no pending task (including indexation task). Disabling indexation task lookup for this worker until next SonarQube restart.
 ```
 
-###Основная часть
+### Основная часть
 
 Скачиваем архив с `sonar-scanner`:
 ```
@@ -118,9 +118,9 @@ INFO: ------------------------------------------------------------------------
 Смотрим финальный результат в интерфейсе:
 ![Alt text](after_analyze.png)
 
-##Знакомство с Nexus
+## Знакомство с Nexus
 
-###Подготовка к выполнению
+### Подготовка к выполнению
 
 Скачиваем образ `nexus`:
 ```
@@ -173,7 +173,7 @@ bash-4.4$ cat nexus-data/admin.password
 Подключаемся под админом, меняем пароль, сохраняем анонимный доступ и смотрим финальный результат в интерфейсе:
 ![Alt text](nexus_start_page.png)
 
-###Основная часть
+### Основная часть
 
 В репозиторий `maven-public` загружаем артефакт с GAV параметрами:
 * groupId: netology
@@ -191,9 +191,9 @@ bash-4.4$ cat nexus-data/admin.password
 
 [maven-metadata.xml](maven-metadata.xml)
 
-##Знакомство с Maven
+## Знакомство с Maven
 
-###Подготовка к выполнению
+### Подготовка к выполнению
 
 Скачиваем образ `maven`:
 ```
