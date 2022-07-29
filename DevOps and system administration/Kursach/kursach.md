@@ -1,16 +1,17 @@
-#### Процесс установки и настройки ufw
+### Процесс установки и настройки `ufw`
+
+#### Устанавливаем `ufw`:
 ````
 root@kursach:/home/defuser# apt install ufw
 ````
+
+#### Смотрим статус `ufw`:
 ````
 root@kursach:/home/defuser# ufw status verbose
 Status: inactive
 ````
-````
-root@kursach:/home/defuser# ufw allow 22/tcp
-Skipping adding existing rule
-Skipping adding existing rule (v6)
-````
+
+#### Добавляем правило, разрешающее подключение по `ssh`:
 ````
 root@kursach:/home/defuser# ufw allow ssh
 Rules updated
