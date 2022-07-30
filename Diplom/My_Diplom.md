@@ -42,15 +42,16 @@
 #### Полученный сертификат
 ![](Сертификаты.png)
 
-#### GitLab_project_was_successfully_imported
+#### В GitLab подключаем репозиторий GitHub по URL
 ![](GitLab_project_was_successfully_imported.png)
 
-#### GitLab_tag
+#### Добавлен commit v1.0.0 .gitlab-ci.yml file
 ![](GitLab_tag.png)
 
 #### GitLab_ranners
 ![](GitLab_ranners.png)
 
+#### Мониторинг
 #### Prometheus_runtime_information
 ![](prometheus_runtime_information.png)
 
