@@ -1,0 +1,61 @@
+---
+- name: Install and configure Nginx
+  hosts: nginx
+  become: true
+  become_method: sudo
+  become_user: root
+  remote_user: ubuntu
+  roles:
+   - nginx
+   - nodeexporter
+  vars:
+    nginx_user: www-data
+
+- name: Install and configure MySQL
+  hosts: db
+  become: true
+  become_method: sudo
+  become_user: root
+  remote_user: ubuntu
+  roles:
+   - mysql
+   - nodeexporter
+
+- name: Install and configure Application
+  hosts: application
+  become: true
+  become_method: sudo
+  become_user: root
+  remote_user: ubuntu
+  roles:
+   - wordpress
+   - nodeexporter
+
+- name: Install and configure Gitlab
+  hosts: gitlab
+  become: true
+  become_method: sudo
+  become_user: root
+  remote_user: ubuntu
+  roles:
+   - gitlab
+
+- name: Install and configure Runner
+  hosts: runner
+  become: true
+  become_method: sudo
+  become_user: root
+  remote_user: ubuntu
+  roles:
+   - runner
+   - nodeexporter
+
+- name: Install and configure Monitoring
+  hosts: monitoring
+  become: true
+  become_method: sudo
+  become_user: root
+  remote_user: ubuntu
+  roles:
+   - monitoring
+   - nodeexporter

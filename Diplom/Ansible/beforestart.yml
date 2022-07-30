@@ -1,0 +1,11 @@
+- name: Create ansible user
+  hosts: allnodes
+  vars:
+    ansible_ssh_pipelining: false
+    ansible_ssh_transfer_method: smart
+  gather_facts: false
+  become: true
+  become_method: sudo
+  remote_user: ubuntu
+  roles:
+   - beforestart
