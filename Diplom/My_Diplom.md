@@ -11,7 +11,7 @@
 * Настроить CI/CD для автоматического развёртывания приложения.
 * Настроить мониторинг инфраструктуры с помощью стека: Prometheus, Alert Manager и Grafana.
 
-#### Зарегестрировано доменное имя `aekuzina.site`
+#### Зарегистрировано доменное имя `aekuzina.site`
 #### 
 * В YC создан проект `cloud-alleksandra-kuzina`  c каталогом `default`
 * В каталоге `default` создан сервисный аккаунт `kuzina` с ролью `editor` и сгенерированы необходимые ключами доступа
@@ -19,7 +19,7 @@
 
 ![](YC_abucket.png)
 
-#### Инициализируем terramorm и создадим изоляционные среды terraform workspace prod и stage.
+#### Инициализируем terraform и создадим изоляционные среды terraform workspace prod и stage.
 
 ![](Создание_workspace.png)
 
