@@ -52,28 +52,28 @@
 ![](GitLab_ranners.png)
 
 #### Мониторинг
-#### Prometheus_runtime_information
+#### Статистика запущенного prometheus и версия сборки и go
 ![](prometheus_runtime_information.png)
 
-#### Prometheus_targets
+#### Ip-адрес и порт для сбора метрик
 ![](prometheus_targets.png)
 
 #### Prometheus_alerts
 ![](prometheus_alerts.png)
 
-#### alertmanager
+#### Alertmanager
 ![](alertmanager.png)
 
-#### alertmanager_filter
+#### Фильтрация метрик
 ![](alertmanager_filter.png)
 
-#### grafana_alerting
+#### Grafana_alerting
 ![](grafana_alerting.png)
 
-#### grafana_dashboards
+#### Grafana_dashboards
 ![](grafana_dashboards.png)
 
-#### grafana_nodeExporterFull
+#### Grafana_nodeExporterFull на всех нодах
 ![](grafana_nodeExporterFull.png)
 
 
