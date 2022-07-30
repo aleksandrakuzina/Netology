@@ -42,13 +42,13 @@
 #### Полученный сертификат
 ![](Сертификаты.png)
 
-#### В GitLab подключаем репозиторий GitHub по URL
+#### В GitLab импортируем репозиторий GitHub по URL
 ![](GitLab_project_was_successfully_imported.png)
 
-#### Добавлен commit v1.0.0 .gitlab-ci.yml file
+#### Добавлен commit v1.0.0 файлу .gitlab-ci.yml
 ![](GitLab_tag.png)
 
-#### GitLab_ranners
+#### подключаем runners к импортированному репозиторию
 ![](GitLab_ranners.png)
 
 #### Мониторинг
