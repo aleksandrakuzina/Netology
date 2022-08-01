@@ -1,7 +1,7 @@
 ### Задача 1 (Вариант с Yandex.Cloud). Регистрация в ЯО и знакомство с основами 
 #### Регистрация и знакомство пройдено
 
-#### Задача 2. Создание aws ec2 или yandex_compute_instance через терраформ.
+### Задача 2. Создание aws ec2 или yandex_compute_instance через терраформ.
 #### В каталоге terraform вашего основного репозитория, который был создан в начале курсе, создайте файл main.tf и versions.tf.
 * Созданы два файла `provider.tf` и `variables.tf`
 #### В файл main.tf добавьте блок provider, а в versions.tf блок terraform с вложенным блоком required_providers. Укажите любой выбранный вами регион внутри блока provider.
