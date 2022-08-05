@@ -1,0 +1,27 @@
+version: 3
+projects:
+- dir: Mydir
+  workspace: stage
+  autoplan:
+    when_modified: ["/*.tf"]
+    enabled: true
+  workflow: default
+- dir: Mydir
+  workspace: prod
+  autoplan:
+    when_modified: ["/*.tf"]
+    enabled: true
+  workflow: default
+workflows:
+  default:
+    plan:
+      steps:
+      - run: my custom command
+      - init
+      - plan:
+          extra_args: ["-lock", "false"]
+      - run: my custom command
+    apply:
+      steps:
+      - run: echo hi
+      - apply

@@ -1,0 +1,21 @@
+repos:
+- id: github.com/aleksandrakuzina/local_git
+  apply_requirements: [approved]
+  workflow: custom
+  allowed_workflows: [custom]
+  allow_custom_workflows: true
+
+
+workflows:
+  custom:
+    plan:
+      steps:
+      - run: my-custom-command arg1 arg2
+      - init
+      - plan:
+          extra_args: ["-lock", "false"]
+      - run: my-custom-command arg1 arg2
+   apply:
+      steps:
+      - run: echo echo hi
+      - apply
