@@ -36,3 +36,4 @@ https://github.com/hashicorp/terraform-provider-aws/blob/7230993c7834dd03e898efc
 
 ### *Какому регулярному выражению должно подчиняться имя?*
 Ссылка на строчку кода: https://github.com/hashicorp/terraform-provider-aws/blob/8a04c06a6cc5eeb7ad478f2451d8e07a31550100/internal/service/sqs/queue.go#L422
+
