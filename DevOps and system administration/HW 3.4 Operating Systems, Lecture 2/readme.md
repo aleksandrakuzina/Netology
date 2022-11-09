@@ -1,3 +1,7 @@
+
+
+*Ссылка на ДЗ: https://github.com/netology-code/sysadm-homeworks/blob/devsys10/03-sysadmin-04-os/README.md*
+
 ### 1. На лекции мы познакомились с node_exporter. В демонстрации его исполняемый файл запускался в background. Этого достаточно для демо, но не для настоящей production-системы, где процессы должны находиться под внешним управлением. Используя знания из лекции по systemd, создайте самостоятельно простой unit-файл для node_exporter:
 
 *создан файл сервиса  /etc/systemd/system/node_exporter.service*

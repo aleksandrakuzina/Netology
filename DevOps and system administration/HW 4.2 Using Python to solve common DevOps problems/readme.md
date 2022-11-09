@@ -1,4 +1,6 @@
 # Домашнее задание к занятию "4.2. Использование Python для решения типовых DevOps задач"
+*Ссылка на ДЗ: https://github.com/netology-code/sysadm-homeworks/tree/devsys10/04-script-02-py*
+
 
 ## Обязательная задача 1
 

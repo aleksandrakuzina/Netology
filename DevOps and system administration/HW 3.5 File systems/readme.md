@@ -1,3 +1,6 @@
+
+*Ссылка на ДЗ: https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-05-fs*
+
 ### 1. Узнайте о sparse (разряженных) файлах.
 
 Разряженные файлы - это такие файлы которые не позволяют 

@@ -1,5 +1,7 @@
 Домашнее задание к занятию «2.4. Инструменты Git»
 
+*Ссылка на ДЗ:https://github.com/netology-code/sysadm-homeworks/blob/devsys10/02-git-04-tools/README.md*
+
 Для выполнения заданий в этом разделе давайте склонируем репозиторий с исходным кодом терраформа
 
 https://github.com/hashicorp/terraform

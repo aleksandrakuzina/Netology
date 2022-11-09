@@ -1,3 +1,6 @@
+
+*Ссылка на ДЗ: https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-09-security*
+
 ### 1. Установите Bitwarden плагин для браузера. Зарегестрируйтесь и сохраните несколько паролей.
 
 ![Alt text](Задание_1_установить_bitwarden.png)

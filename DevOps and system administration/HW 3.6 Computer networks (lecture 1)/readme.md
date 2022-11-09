@@ -1,3 +1,6 @@
+
+*Ссылка на ДЗ: https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-06-net*
+
 ### 1.Работа c HTTP через телнет. Подключитесь утилитой телнет к сайту stackoverflow.com telnet stackoverflow.com 80 отправьте HTTP запрос
 > GET /questions HTTP/1.0
 > HOST: stackoverflow.com

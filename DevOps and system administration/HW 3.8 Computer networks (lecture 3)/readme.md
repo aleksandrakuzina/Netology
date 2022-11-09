@@ -1,3 +1,5 @@
+*Ссылка на ДЗ: https://github.com/netology-code/sysadm-homeworks/blob/devsys10/03-sysadmin-08-net/README.md*
+
 ### 1. Подключитесь к публичному маршрутизатору в интернет. Найдите маршрут к вашему публичному IP
 
 ````

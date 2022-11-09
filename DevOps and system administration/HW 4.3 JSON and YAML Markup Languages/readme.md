@@ -1,6 +1,5 @@
-
 # Домашнее задание к занятию "4.3. Языки разметки JSON и YAML"
-
+*Ссылка на ДЗ: https://github.com/netology-code/sysadm-homeworks/tree/devsys10/04-script-03-yaml*
 
 ## Обязательная задача 1
 Мы выгрузили JSON, который получили через API запрос к нашему сервису:

@@ -1,3 +1,5 @@
+*Ссылка на ДЗ:https://github.com/netology-code/sysadm-homeworks/blob/devsys10/03-sysadmin-01-terminal/README.md*
+
 # Установите средство виртуализации [Oracle VirtualBox](https://www.virtualbox.org/).
 
 установлено

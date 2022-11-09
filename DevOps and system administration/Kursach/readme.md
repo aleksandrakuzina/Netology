@@ -1,3 +1,5 @@
+*Ссылка на ДЗ: https://github.com/netology-code/pcs-devsys-diplom/blob/main/README.md*
+
 ### Процесс установки и настройки `ufw`
 
 #### Устанавливаем `ufw`:
