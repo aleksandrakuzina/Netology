@@ -4,3 +4,4 @@ workspace.xml
 .idea/
 *.code-workspace
 README.md.code-workspace
+.gitignore
