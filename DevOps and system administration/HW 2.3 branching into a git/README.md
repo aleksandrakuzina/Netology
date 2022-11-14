@@ -29,7 +29,7 @@ done
 ```
 >Этот скрипт отображает на экране все параметры одной строкой, а не разделяет их.
 
-**Создано**
+**Созданы файлы:**
 
 [branching/merge.sh](branching/merge.sh) 
 
@@ -38,10 +38,20 @@ done
 
 >2. Создадим коммит с описанием `prepare for merge and rebase` и отправим его в ветку `main`.
 
->**Подготовка файла `merge.sh`**
+**Создано и отправлено в ветку `main`**
+```bash
+commit 690fdd215ab2e971336c31ee3f67a7a423f07aef
+Author: Alexandra <@mail.ru>
+Date:   Mon Nov 7 11:36:26 2022 +0300
 
-1. Создайте ветку `git-merge`.
-2. Замените в ней содержимое файла `merge.sh` на
+    prepare for merge and rebase
+```
+
+
+>**Подготовка файла `merge.sh`**
+>
+>1. Создайте ветку `git-merge`.
+>2. Замените в ней содержимое файла `merge.sh` на
 
 ```bash
 #!/bin/bash
@@ -53,8 +63,8 @@ for param in "$@"; do
     count=$(( $count + 1 ))
 done
 ```
-3. Создайте коммит `merge: @ instead * ` отправьте изменения в репозиторий
-4. И разработчик подумал и решил внести еще одно изменение в `merge.sh`
+>3. Создайте коммит `merge: @ instead * ` отправьте изменения в репозиторий
+>4. И разработчик подумал и решил внести еще одно изменение в `merge.sh`
 
 ```bash
 #!/bin/bash
@@ -69,6 +79,14 @@ done
 ```
 >Теперь скрипт будет отображать каждый переданный ему параметр отдельно.
 
+**Создана ветка `git-merge` и отправлены измнения файла `merge.sh` с коммитом `merge: @ instead * `** 
+```bash
+commit 73acd7cb8b11ad5ba8515b3adf238af3c22c48c0 (origin/git-merge, git-merge)
+Author: Alexandra <@mail.ru>
+Date:   Mon Nov 7 14:26:01 2022 +0300
+
+    merge: @ instead *
+```
 5. Теперь скрипт будет отображать каждый переданный ему параметр отдельно.
 
 >**Изменим main**
@@ -89,7 +107,10 @@ done
 echo "====="
 ```
 >В этом случае скрипт тоже будет отображать каждый параметр в новой строке.
-3. Отправляем измененную ветку main в репозиторий.
+>
+>3. Отправляем измененную ветку main в репозиторий.
+
+  
 
 >**Подготовка файла rebase.sh**
 
@@ -114,12 +135,31 @@ echo "====="
 
 5. И сделаем еще один коммит `git-rebase 2` с пушем заменив `echo "Parameter: $param"` на `echo "Next parameter: $param"`.
 
+
+**Сделано, в ветку `git-rebase` отправлены изменения `git-rebase 1`**
+```bash
+commit 0330afbbcfc38d48f72a6ee250b7fdbd8d50bedd
+Author: Alexandra <@mail.ru>
+Date:   Mon Nov 7 16:53:46 2022 +0300
+
+    git-rebase 1
+```
+
+```
+commit 5f09eb73843700d1e097584ad41c34822dbb2c0a
+Author: Aleksandra_Kuzina <@gmail.com>
+Date:   Wed Nov 24 21:06:38 2021 +0300
+
+    Revert "git-rebase 2"
+```    
+
 >**Промежуточный итог**
-
+>
 >Мы сэмулировали типичную ситуации в разработке кода, когда команда разработчиков работала над одним и тем же участком кода, причем кто-то из разработчиков предпочитает делать `merge`, а кто-то `rebase`. Конфликты с `merge` обычно решаются достаточно просто, а с `rebase` бывают сложности, поэтому давайте смержим все наработки в `main` и разрешим конфликты.
-
+>
 >Если все было сделано правильно, то на странице `network` в гитхабе, находящейся по адресу `https://github.com/ВАШ_ЛОГИН/ВАШ_РЕПОЗИТОРИЙ/network ` будет примерно такая схема:
 ![](gbig41ye.jpg)
+
 
 >**Merge**
 
@@ -138,6 +178,9 @@ Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
 ```
 >В результате получаем такую схему:
 ![](t6j1xcxr.jpg)
+
+![](2022-11-14_154948.png)
+
 
 >**Rebase**
 1. А перед мержем ветки `git-rebase` выполним ее `rebase` на `main`. Да, мы специально создали ситуацию с конфликтами, чтобы потренироваться их решать.
@@ -225,6 +268,8 @@ Branch 'git-rebase' set up to track remote branch 'git-rebase' from 'origin'.
 ```
 >Теперь можно смержить ветку `git-rebase` в main без конфликтов и без дополнительного мерж-комита простой перемоткой. 
 
+
+**Мерж ветки git-rebase**
 ```bash
 $ git checkout main
 Switched to branch 'main'
@@ -236,4 +281,11 @@ Fast-forward
  branching/rebase.sh | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 ```
+```bash
+commit 2d00fd2fcaf8ba54e864edc2e3f5094b95719928
+Merge: a267ca8 8c26bf5
+Author: Aleksandra_Kuzina <alleksandra.kuzina@gmail.com>
+Date:   Thu Nov 25 17:41:26 2021 +0300
 
+    Merge remote-tracking branch 'origin/master'
+```
