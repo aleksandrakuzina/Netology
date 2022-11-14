@@ -35,7 +35,6 @@ LANG=en_US.UTF-8LANGUAGE=en_US:PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/us
 ```
 
 *статус запущенного процесса на локальном компьюторе:*
-
 ```
 root@ubuntu2:/node_exporter-1.3.1.linux-amd64# systemctl status node_exporter
 ● node_exporter.service - Node Exporter
