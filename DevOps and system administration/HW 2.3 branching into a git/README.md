@@ -29,7 +29,7 @@ done
 ```
 >Этот скрипт отображает на экране все параметры одной строкой, а не разделяет их.
 
-**Созданы файлы:**
+### **Созданы файлы:**
 
 [branching/merge.sh](branching/merge.sh) 
 
@@ -38,7 +38,7 @@ done
 
 >2. Создадим коммит с описанием `prepare for merge and rebase` и отправим его в ветку `main`.
 
-**Создано и отправлено в ветку `main`**
+### **Создано и отправлено в ветку `main`**
 ```bash
 commit 690fdd215ab2e971336c31ee3f67a7a423f07aef
 Author: Alexandra <@mail.ru>
@@ -79,7 +79,7 @@ done
 ```
 >Теперь скрипт будет отображать каждый переданный ему параметр отдельно.
 
-**Создана ветка `git-merge` и отправлены измнения файла `merge.sh` с коммитом `merge: @ instead * `** 
+### **Создана ветка `git-merge` и отправлены измнения файла `merge.sh` с коммитом `merge: @ instead * `** 
 ```bash
 commit 73acd7cb8b11ad5ba8515b3adf238af3c22c48c0 (origin/git-merge, git-merge)
 Author: Alexandra <@mail.ru>
@@ -136,7 +136,7 @@ echo "====="
 5. И сделаем еще один коммит `git-rebase 2` с пушем заменив `echo "Parameter: $param"` на `echo "Next parameter: $param"`.
 
 
-**Сделано, в ветку `git-rebase` отправлены изменения `git-rebase 1`**
+### **Сделано, в ветку `git-rebase` отправлены изменения `git-rebase 1` и `git-rebase 2**
 ```bash
 commit 0330afbbcfc38d48f72a6ee250b7fdbd8d50bedd
 Author: Alexandra <@mail.ru>
@@ -178,6 +178,8 @@ Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
 ```
 >В результате получаем такую схему:
 ![](t6j1xcxr.jpg)
+
+### **Мой результат:**
 
 ![](2022-11-14_154948.png)
 
@@ -269,7 +271,7 @@ Branch 'git-rebase' set up to track remote branch 'git-rebase' from 'origin'.
 >Теперь можно смержить ветку `git-rebase` в main без конфликтов и без дополнительного мерж-комита простой перемоткой. 
 
 
-**Мерж ветки git-rebase**
+### **Мерж ветки git-rebase**
 ```bash
 $ git checkout main
 Switched to branch 'main'
