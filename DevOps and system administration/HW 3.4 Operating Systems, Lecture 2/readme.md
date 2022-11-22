@@ -1,9 +1,9 @@
-
+# Домашнее задание к занятию "3.4. Операционные системы. Лекция 2"
 
 *Ссылка на ДЗ: https://github.com/netology-code/sysadm-homeworks/blob/devsys10/03-sysadmin-04-os/README.md*
 
 ### 1. На лекции мы познакомились с node_exporter. В демонстрации его исполняемый файл запускался в background. Этого достаточно для демо, но не для настоящей production-системы, где процессы должны находиться под внешним управлением. Используя знания из лекции по systemd, создайте самостоятельно простой unit-файл для node_exporter:
-
+### **Ответ:**
 *создан файл сервиса  /etc/systemd/system/node_exporter.service*
 
 ```
@@ -57,11 +57,11 @@ Dec 19 19:42:37 ubuntu2 node_exporter[15550]: ts=2021-12-19T19:42:37.094Z caller
 Dec 19 19:42:37 ubuntu2 node_exporter[15550]: ts=2021-12-19T19:42:37.095Z caller=tls_config.go:195 level=info msg="TLS is disabled." http2=false
 ```
 
-* поместите его в автозагрузку
+> поместите его в автозагрузку
 
 *файл помещен в /etc/systemd/system*
 
-* предусмотрите возможность добавления опций к запускаемому процессу через внешний файл (посмотрите, например, на systemctl cat cron),
+> предусмотрите возможность добавления опций к запускаемому процессу через внешний файл (посмотрите, например, на systemctl cat cron),
 
 ```
 root@ubuntu2:/etc/systemd/system# systemctl cat cron
@@ -80,14 +80,15 @@ KillMode=process
 WantedBy=multi-user.target
 ```
 
-* удостоверьтесь, что с помощью systemctl процесс корректно стартует, завершается, а после перезагрузки автоматически поднимается.
+> удостоверьтесь, что с помощью systemctl процесс корректно стартует, завершается, а после перезагрузки автоматически поднимается.
 
 *После остановки процесс стартует:*
 
-* Dec 19 20:06:22 ubuntu2 systemd[1]: Stopping Node Exporter...
-* Active: active (running) since Sun 2021-12-19 20:06:54 UTC; 2s ago
-* Main PID: 15611 (node_exporter)
-
+```bash
+ Dec 19 20:06:22 ubuntu2 systemd[1]: Stopping Node Exporter...
+ Active: active (running) since Sun 2021-12-19 20:06:54 UTC; 2s ago
+ Main PID: 15611 (node_exporter)
+```
 ```
 root@ubuntu2:/etc/systemd/system# systemctl stop node_exporter
 root@ubuntu2:/etc/systemd/system# systemctl status node_exporter
@@ -235,12 +236,13 @@ node_network_carrier{device="lo"} 1
 
 ### 3. Установите в свою виртуальную машину Netdata. Воспользуйтесь готовыми пакетами для установки (sudo apt install -y netdata). После успешной установки:
 
-в конфигурационном файле /etc/netdata/netdata.conf в секции [web] замените значение с localhost на bind to = 0.0.0.0,
+> В конфигурационном файле /etc/netdata/netdata.conf в секции [web] замените значение с localhost на bind to = 0.0.0.0,
 добавьте в Vagrantfile проброс порта Netdata на свой локальный компьютер и сделайте vagrant reload:
 config.vm.network "forwarded_port", guest: 19999, host: 19999
 
-После успешной перезагрузки в браузере на своем ПК (не в виртуальной машине) вы должны суметь зайти на localhost:19999. Ознакомьтесь с метриками, которые по умолчанию собираются Netdata и с комментариями, которые даны к этим метрикам.
+> После успешной перезагрузки в браузере на своем ПК (не в виртуальной машине) вы должны суметь зайти на localhost:19999. Ознакомьтесь с метриками, которые по умолчанию собираются Netdata и с комментариями, которые даны к этим метрикам.
 
+### **Ответ:**
 *Установлен netdata и запущен.*
 
 ```
@@ -270,17 +272,17 @@ bind to = 0.0.0.0
 
 ### 4. Можно ли по выводу dmesg понять, осознает ли ОС, что загружена не на настоящем оборудовании, а на системе виртуализации?
 
+### **Ответ:**
 *Команда dmesg используется для проверки содержимого или управления буфером кольца ядра.В результате вывода команды dmesg ядро выводит сообщение о KVM, значит ответ "Да, осознает".*
 
-```
+```bash
 vagrant@ubuntu2:~$ sudo dmesg | grep "Hypervisor detected"
 [    0.000000] Hypervisor detected: KVM
 ```
 
-### 5. Как настроен sysctl fs.nr_open на системе по-умолчанию? Узнайте, что означает этот параметр. Какой другой существующий лимит не позволит достичь такого числа (ulimit --help)
+### 5. Как настроен `sysctl fs.nr_open` на системе по-умолчанию? Узнайте, что означает этот параметр. Какой другой существующий лимит не позволит достичь такого числа `(ulimit --help)`
 
-fs.nr_open - сообщает какое максимальное количество файловых дискриптеров возможно открыть
-
+* `fs.nr_open `- сообщает какое максимальное количество файловых дискриптеров возможно открыть
 * The default value fs.nr_open is 1024*1024 = 1048576.
 * The maximum value of fs.nr_open is limited to sysctl_nr_open_max in kernel, which is 2147483584 on x86_64.
 
@@ -291,11 +293,13 @@ Note: The value of "Max open files"(ulimit -n) is limited to fs.nr_open value.*
 *nsenter - run program in different namespaces*
 *Создаем процесс в изолированном пространстве*
 
-```vagrant@ubuntu2:/etc$ unshare --fork --pid --mount-proc sleep 1h```
+```bash
+vagrant@ubuntu2:/etc$ unshare --fork --pid --mount-proc sleep 1h
+```
 
 *создалось отдельное дерево процессов 5355*
 
-```
+```bash
 root@ubuntu2:~# ps -ef | grep sleep
 root      5350  3903  0 19:11 pts/0    00:00:00 sudo -i unshare --fork --pid --mount-proc sleep 1h
 root      5351  5350  0 19:11 pts/0    00:00:00 unshare --fork --pid --mount-proc sleep 1h
@@ -303,8 +307,7 @@ root      5355  5351  0 19:11 pts/0    00:00:00 sleep 1h
 ```
 
 *заходим в namespaсe процесса и видим что sleep под PID1*
-
-```
+```bash
 root@ubuntu2:~# nsenter -t 5355 -p -m
 root@ubuntu2:/# ps -ef
 UID        PID  PPID  C STIME TTY          TIME CMD
@@ -315,18 +318,18 @@ root        15     2  0 19:14 pts/2    00:00:00 ps -ef
 
 ### 7. Найдите информацию о том, что такое :() { :|:& };:. Запустите эту команду в своей виртуальной машине Vagrant с Ubuntu 20.04 (это важно, поведение в других ОС не проверялось). Н екоторое время все будет "плохо", после чего (минуты) – ОС должна стабилизироваться. Вызов dmesg расскажет, какой механизм помог автоматической стабилизации. Как настроен этот механизм по-умолчанию, и как изменить число процессов, которое можно создать в сессии?
 
-````
+```bash
 :() создается функция с названием ":"
 { } описано ее поведение (тело)
 :|:& вызов себя и вызов себя повторно через логическое ИЛИ; 
 & запуск в фоновом режиме
 ; конец описания функции
 : вызов функции ":"
-````
+```
 
 *после запуска вывел сообщения о достижении лимита:*
 
-```
+```bash
 : fork: retry: Resource temporarily unavailable
 -bash: fork: retry: Resource temporarily unavailable
 -bash: fork: retry: Resource temporarily unavailable
@@ -339,6 +342,6 @@ root        15     2  0 19:14 pts/2    00:00:00 ps -ef
 
 *в журнале dmesg видим запись о том, что помог механизм cgroup*
 
-````
+```bash
 [27806.034979] cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-24.scope
-````
+```
