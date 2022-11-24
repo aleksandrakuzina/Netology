@@ -293,7 +293,8 @@ root@vagrant /h/vagrant# mount
 ....
 /dev/mapper/vg1-lvol0 on /tmp/new type ext4 (rw,relatime,stripe=256)
 ````
-### 13. Поместите туда тестовый файл, например wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/new/test.gz..
+### 13. Поместите туда тестовый файл, например:  
+#### `wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/new/test.gz..`
 ````
 root@vagrant /h/vagrant# wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/new/test.gz
 --2022-01-13 20:13:39--  https://mirror.yandex.ru/ubuntu/ls-lR.gz
@@ -313,7 +314,7 @@ drwx------ 2 root root    16384 Jan 13 20:06 lost+found/
 -rw-r--r-- 1 root root 21993471 Jan 13 16:56 test.gz
 
 ````
-### 14. Прикрепите вывод lsblk.
+### 14. Прикрепите вывод `lsblk`.
 ````
 root@vagrant /h/vagrant# lsblk
 NAME                 MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
@@ -342,7 +343,7 @@ root@vagrant /h/vagrant# gzip -t /tmp/new/test.gz
 root@vagrant /h/vagrant# echo $status
 0
 ````
-### 16. Используя pvmove, переместите содержимое PV с RAID0 на RAID1.
+### 16. Используя `pvmove`, переместите содержимое PV с RAID0 на RAID1.
 ````
 root@vagrant /h/vagrant# pvmove /dev/md1
   /dev/md1: Moved: 8.00%
@@ -404,7 +405,7 @@ Consistency Policy : resync
 
 ````
 
-### 18. Подтвердите выводом dmesg, что RAID1 работает в деградированном состоянии.
+### 18. Подтвердите выводом `dmesg`, что RAID1 работает в деградированном состоянии.
 ````
 root@vagrant /h/vagrant# dmesg |grep md0
 [12275.573785] md/raid1:md0: not clean -- starting background reconstruction
@@ -425,6 +426,5 @@ root@vagrant /h/vagrant# gzip -t /tmp/new/test.gz && echo $status
 /drives/d/Vagrant/Vagrant_3  vagrant destroy
     default: Are you sure you want to destroy the 'default' VM? [y/N] y
 ==> default: Forcing shutdown of VM...
-==> default: Destroying VM and associated drives...
-
+==> default: Destroying VM and associated drives..
 ````
