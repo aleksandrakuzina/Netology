@@ -1,19 +1,21 @@
-
+# Домашнее задание к занятию "3.9. Элементы безопасности информационных систем"
 *Ссылка на ДЗ: https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-09-security*
 
 ### 1. Установите Bitwarden плагин для браузера. Зарегестрируйтесь и сохраните несколько паролей.
+### **Ответ:**
+*Настроено:*
 
 ![Alt text](Задание_1_установить_bitwarden.png)
 
 ### 2. Установите Google authenticator на мобильный телефон. Настройте вход в Bitwarden аккаунт через Google authenticator OTP
-
-*Google authenticator установлен код генерируется каждые 30 секунд, вход с помощью двухфакторной аутентификации выполнен (ввод пароля + код OTP)*
-![Alt text](Задание_2_1.png)5н6е
+### **Ответ:**
+*Google authenticator установлен, код генерируется каждые 30 секунд, вход с помощью двухфакторной аутентификации выполнен (ввод пароля + код OTP)*
+![Alt text](Задание_2_1.png)
 
 ![Alt text](Задание_2_2.png)
 
 ### 3. Установите apache2, сгенерируйте самоподписанный сертификат, настройте тестовый сайт для работы по HTTPS.
-
+### **Ответ:**
 Скорректировано задание 3
 ````
 root@debian /etc/ssh# cat /etc/apache2/sites-enabled/default-ssl.conf
@@ -46,7 +48,8 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apa
 
 ### 5. Установите на Ubuntu ssh сервер, сгенерируйте новый приватный ключ. Скопируйте свой публичный ключ на другой сервер. Подключитесь к серверу по SSH-ключу.
 
-Скорректировано задание 5
+ Скорректировано задание 5
+
 *Передаем публичный ssh ключ в дебиан*
 ```
 root@debian ~/.ssh# echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9ustRJdYxZqIJktG9zorl9WYfkaj0iSZXlVJOYPVPKve8qrTOVepqpL5C2of4AozM6Q0Ix0Kppz0VKS9uqj9JCFCYPZRQtPaU0gxhOt1i9C4iefFBVsHaQHvImyMWsPpeg3ThDVBZnclE/X9CQR5gT9RW0CrDFJzfiLfnUjSoaaz3dXcQurqo/ZVO6cbrZWWKMaNSkgmLKyQE55nh+TOYnE74ijVn8UJjkNoeOicpBTUGWa6ZIcXL7ag6wsiJcmUPPofxhbzlhB6gCa+3v6SQ92FfJRe9w+LVixuWgHoTFZ8RrBaSp14SFxprrwkZEQyfBR9uMZAxHZcxmnpGHrKel0bNnJMVrITzSnCCRB5t1VE2JbNhqhO5HL+ras8XOZz80Kj57K6E1hYb+OtdscnBPbNOtxa6Q+kwX+gjqGXqIJrmaD8iCnLI+hvUhX2cNzi5TZWt6UBhIEpMcly0o+krkXQfpWpHaShTaKi1+BrD9R+3fBW18uRkajZPY0b3lC0= sasha@DESKTOP-629HIOD" >> ~/.ssh/authorized_keys
@@ -125,6 +128,7 @@ root@debian ~#
 ### 6. Переименуйте файлы ключей из задания 5. Настройте файл конфигурации SSH клиента, так чтобы вход на удаленный сервер осуществлялся по имени сервера.
 
 Скорректировано задание 6
+
 *Папка с ключами в моем windows*
 ```
  Directory of C:\Users\Sasha.DESKTOP-629HIOD\.ssh
@@ -154,7 +158,6 @@ Host debian
   #StrictHostKeyChecking no
 ```
 *захододим по алиасу*
-
 ````
 C:\Users\Sasha.DESKTOP-629HIOD\.ssh>ssh -v  debian
 OpenSSH_for_Windows_8.1p1, LibreSSL 3.0.2

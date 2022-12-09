@@ -1,3 +1,5 @@
+# Домашнее задание к занятию "3.8. Компьютерные сети, лекция 3"
+
 *Ссылка на ДЗ: https://github.com/netology-code/sysadm-homeworks/blob/devsys10/03-sysadmin-08-net/README.md*
 
 ### 1. Подключитесь к публичному маршрутизатору в интернет. Найдите маршрут к вашему публичному IP
@@ -47,9 +49,8 @@ Paths: (23 available, best #22, table default)
 
 ### 2. Создайте dummy0 интерфейс в Ubuntu. Добавьте несколько статических маршрутов. Проверьте таблицу маршрутизации.
 
-*Создан dummy0 интерфейс в debian 10;*
-
-*Добавлено несколько статических маршрутов;*
+* Создан dummy0 интерфейс в debian 10;
+* Добавлено несколько статических маршрутов
 
 ```
 @debian ~$ cat /etc/network/interfaces
@@ -93,7 +94,7 @@ default         192.168.0.99    0.0.0.0         UG    0      0        0 enp0s3
 *На моей машине "Program name" не виден:*
 
 ````
-@debian ~$ netstat -pntul
+@debian ~$ netstat -ntupl
 (Not all processes could be identified, non-owned process info
  will not be shown, you would have to be root to see it all.)
 Active Internet connections (only servers)
@@ -129,7 +130,7 @@ udp        0      0 0.0.0.0:10000           0.0.0.0:*                           
 
 *здесь наблюдаем несколько tcp-портов (+ некоторые широкоизвестные для примера):*
 
-````
+```
 22 - ssh 
 21 - FTP
 3306 - MySQL
@@ -139,7 +140,7 @@ udp        0      0 0.0.0.0:10000           0.0.0.0:*                           
 6379 - redis-server, но данный порт можно назначить динамически
 25 -  smtp
 465 - SMTPS (SSL/TLS)
-````
+```
 
 ### 4.Проверьте используемые UDP сокеты в Ubuntu, какие протоколы и приложения используют эти порты?
 
