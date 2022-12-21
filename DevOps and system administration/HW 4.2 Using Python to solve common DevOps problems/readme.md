@@ -1,9 +1,6 @@
 # Домашнее задание к занятию "4.2. Использование Python для решения типовых DevOps задач"
 *Ссылка на ДЗ: https://github.com/netology-code/sysadm-homeworks/tree/devsys10/04-script-02-py*
-
-
 ## Обязательная задача 1
-
 Есть скрипт:
 ```python
 #!/usr/bin/env python3
@@ -11,7 +8,6 @@ a = 1
 b = '2'
 c = a + b
 ```
-
 ### Вопросы:
 | Вопрос  | Ответ |
 | ------------- | ------------- |
@@ -53,6 +49,7 @@ for result in result_os.split('\n'):
 ```
 
 ### Вывод скрипта при запуске при тестировании:
+### **Ответ:**
 ```
 C:\Users\K\AppData\Local\Programs\Python\Python39\python.exe "C:/Users/Kslum/PycharmProjects/DevSys_DPC_2_Kuzina/DevOps and system administration/HW 4.2 Using Python to solve common DevOps problems/s.py"
 C:\Users\K\PycharmProjects\DevSys_DPC_2_Kuzina\DevOps and system administration\HW 4.2 Using Python to solve common DevOps problems/../HW 3.9 Security elements of information systems/HW 3.9. Security elements of information systems.md
@@ -64,6 +61,7 @@ Process finished with exit code 0
 1. Доработать скрипт выше так, чтобы он мог проверять не только локальный репозиторий в текущей директории, а также умел воспринимать путь к репозиторию, который мы передаём как входной параметр. Мы точно знаем, что начальство коварное и будет проверять работу этого скрипта в директориях, которые не являются локальными репозиториями.
 
 ### Ваш скрипт:
+### **Ответ:**
 ```python
 #!/usr/bin/env python3
 
@@ -92,6 +90,7 @@ C:\Users\K\PycharmProjects\DevSys_DPC_2_Kuzina\DevOps and system administration\
 1. Наша команда разрабатывает несколько веб-сервисов, доступных по http. Мы точно знаем, что на их стенде нет никакой балансировки, кластеризации, за DNS прячется конкретный IP сервера, где установлен сервис. Проблема в том, что отдел, занимающийся нашей инфраструктурой очень часто меняет нам сервера, поэтому IP меняются примерно раз в неделю, при этом сервисы сохраняют за собой DNS имена. Это бы совсем никого не беспокоило, если бы несколько раз сервера не уезжали в такой сегмент сети нашей компании, который недоступен для разработчиков. Мы хотим написать скрипт, который опрашивает веб-сервисы, получает их IP, выводит информацию в стандартный вывод в виде: <URL сервиса> - <его IP>. Также, должна быть реализована возможность проверки текущего IP сервиса c его IP из предыдущей проверки. Если проверка будет провалена - оповестить об этом в стандартный вывод сообщением: [ERROR] <URL сервиса> IP mismatch: <старый IP> <Новый IP>. Будем считать, что наша разработка реализовала сервисы: `drive.google.com`, `mail.google.com`, `google.com`.
 
 ### Ваш скрипт:
+### **Ответ:**
 ```python
 #!/usr/bin/env python3
 import os.path
